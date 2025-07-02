@@ -1,31 +1,26 @@
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import HomeScreen from '../../components/HomeScreen';
+import ChatScreen from '../../components/ChatScreen';
+import CustomTabBar from '@/components/CustomTabBar';
+import { TabKey } from '../../types';
+import { ChatMetaProvider } from '../../context/ChatMetaContext';
+import { CHARACTERS } from '../../constants';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+export default function MainScreen() {
+  const [activeTab, setActiveTab] = useState<TabKey>('home');
+  const characters = CHARACTERS;
+  const currentCharacter = characters[0];
 
-export default function TabOneScreen() {
+  let ScreenComponent = activeTab === 'home' ? HomeScreen : () => (
+    <ChatMetaProvider value={{ avatar: currentCharacter.profile_pic_url, name: currentCharacter.name }}>
+      <ChatScreen setActiveTab={setActiveTab} />
+    </ChatMetaProvider>
+  );
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <React.Fragment>
+      <ScreenComponent />
+      <CustomTabBar activeTab={activeTab} onTabPress={setActiveTab} />
+    </React.Fragment>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
