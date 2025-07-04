@@ -2,7 +2,14 @@
 
 A React Native mobile application built with Expo, featuring a social media-style interface with character interactions and chat functionality.
 
-#### Expo Link: exp://1ku7rwi-anonymous-8081.exp.direct
+## 🚀 Live Demo
+
+**Expo Link for Reviewing:** `exp://1ku7rwi-anonymous-8081.exp.direct`
+
+### How to Access:
+1. **iOS Users**: Install [Expo Go](https://apps.apple.com/app/expo-go/id982107779) from App Store
+2. **Android Users**: Install [Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent) from Google Play
+3. **Open Expo Go** and scan the QR code below or enter the link manually
 
 ## Project Overview
 
@@ -174,6 +181,11 @@ npx expo start --ios
 npx expo start --android
 npx expo start --web
 
+# Host for external reviewing
+npx expo start --tunnel          # Creates public tunnel (recommended)
+npx expo start --host tunnel     # Alternative tunnel method
+npx expo start --port 8082       # Use different port if needed
+
 # Build for production
 npx expo build:ios
 npx expo build:android
@@ -184,6 +196,68 @@ npx tsc --noEmit
 # Clear cache
 npx expo start --clear
 ```
+
+## 🌐 Hosting for Review
+
+### Method 1: Tunnel (Recommended for External Review)
+```bash
+# Start with tunnel for public access
+npx expo start --tunnel
+
+# This creates a public URL like: exp://1ku7rwi-anonymous-8081.exp.direct
+# Anyone can access this link from anywhere
+```
+
+### Method 2: Same Network (Local Testing)
+```bash
+# Start normally for same-network access
+npx expo start
+
+# Shows local IP like: exp://192.168.1.100:8081
+# Only works for devices on same WiFi network
+```
+
+### Method 3: Alternative Tunnel
+```bash
+# If --tunnel doesn't work, try this
+npx expo start --host tunnel
+```
+
+### Sharing Instructions for Reviewers
+
+1. **Copy the Expo Link** (e.g., `exp://1ku7rwi-anonymous-8081.exp.direct`)
+2. **Share via email, Slack, or any messaging platform**
+3. **Include these instructions for reviewers:**
+
+```
+To review the app:
+1. Install Expo Go from App Store (iOS) or Google Play (Android)
+2. Open Expo Go app
+3. Tap "Enter URL manually" 
+4. Paste: exp://1ku7rwi-anonymous-8081.exp.direct
+5. Tap "Connect"
+```
+
+### Troubleshooting Hosting Issues
+
+**If tunnel fails to start:**
+```bash
+# Install ngrok globally
+npm install --global @expo/ngrok@^4.1.0
+
+# Clear cache and try again
+npx expo start --tunnel --clear
+```
+
+**If port is busy:**
+```bash
+# Use different port
+npx expo start --tunnel --port 8082
+```
+
+**For persistent hosting:**
+- Keep the terminal running while sharing the link
+- The link will be active as long as the development server is running
 
 ## License
 
